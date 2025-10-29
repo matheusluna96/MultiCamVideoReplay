@@ -1,0 +1,4 @@
+replay/exports/*
+replay/buffer_jpegs/*
+replay/__pycache__/*
+.venv/
