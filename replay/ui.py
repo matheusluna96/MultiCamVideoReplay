@@ -228,11 +228,12 @@ class ReplayWindow(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.warning(self, "Exportar clipes", "Janela de 20s indisponível."); return
 
         stamp = time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime(end_ts))
-        os.makedirs(EXPORT_DIR, exist_ok=True)
+        MOMENT_DIR = os.path.join(EXPORT_DIR, f"moment_{stamp}")
+        os.makedirs(MOMENT_DIR, exist_ok=True)
         paths = [
-            (1, os.path.join(EXPORT_DIR, f"clip_cam1_{stamp}.mp4")),
-            (2, os.path.join(EXPORT_DIR, f"clip_cam2_{stamp}.mp4")),
-            (3, os.path.join(EXPORT_DIR, f"clip_both_{stamp}.mp4")),
+            (1, os.path.join(MOMENT_DIR, f"clip_cam1_{stamp}.mp4")),
+            (2, os.path.join(MOMENT_DIR, f"clip_cam2_{stamp}.mp4")),
+            (3, os.path.join(MOMENT_DIR, f"clip_both_{stamp}.mp4")),
         ]
         threads = [ExportThread(self.ring0, self.ring1, start_ts, end_ts, vm, p) for vm, p in paths]
         self._exp_threads = [t for t in self._exp_threads if t.isRunning()] + threads
